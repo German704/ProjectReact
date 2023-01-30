@@ -4,11 +4,14 @@ const express = require('express');
 const path = require('path');
 const logger = require('morgan');
 const cors = require('cors');
+const connectDB = require('./database/config/config')
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
 const app = express();
+
+connectDB()
 
 app
   .use(logger('dev'))
