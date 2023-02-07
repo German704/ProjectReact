@@ -4,19 +4,30 @@ const express = require('express');
 const path = require('path');
 const logger = require('morgan');
 const cors = require('cors');
-const connectDB = require('./database/config/config')
+const connectDB = require('./database/config/config');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
 const app = express();
 
+const whiteList = [process.env.URL_FRONT];
+const corsOptions = {
+  origin: function(origin, cb) {
+    if(whiteList.includes(origin)){
+      cb(null, true);
+    } else {
+      cb(new Error('Error de cors'))
+    };
+  }
+}
+
 connectDB()
 
 app
   .use(logger('dev'))
   .use(express.json())
-  .use(express.urlencoded({ extended: false }))
+  .use(express.urlencoded({ extended: true }))
   .use(cors());
   // .use(express.static(path.join(__dirname, 'public')))
 

@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
 
-module.exports = (payload) => jwt.sign(payload, process.env.SECRETO_MAGICO, {
-    expiresIn: '1h'
+module.exports = (payload) => jwt.sign(payload, process.env.JWT_SECRET, {
+    expiresIn: "1h"
 });
