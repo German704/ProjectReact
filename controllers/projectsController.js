@@ -1,9 +1,18 @@
+const Projects = require("../database/models/Projects");
+const createError = require('http-errors');
+const errorsResponse = require('../helpers/errorsResponse');
+const ObjectId = require('mongoose').Types.ObjectId;
+
 module.exports = {
     list: async (req, res) => {
         try {
+
+            const projects = await Projects.find().where('createBy').equals(req.user);
+
             return res.status(200).json({
                 ok: true,
-                msg: 'lista de proyectos'
+                msg: 'lista de proyectos',
+                projects_List: projects
             })
         } catch (error) {
             console.log(error);
@@ -15,9 +24,27 @@ module.exports = {
     },
     store: async (req, res) => {
         try {
+
+            const {name, description, client} = req.body;
+
+            if([name, description, client].includes("") ||!name ||!description || !client){
+                throw createError(400,'Todos los campos son obligatorios');
+            }
+
+            if(!req.user){
+                throw createError(401,'Error de autenticacion');
+            }
+
+            const project = new Projects(req.body);
+            project.createBy = req.user._id;
+
+            // console.log(project)
+            const projectStore = await project.save();
+
             return res.status(201).json({
                 ok: true,
-                msg: 'projecto guardado'
+                msg: 'projecto guardado',
+                project: projectStore
             })
         } catch (error) {
             console.log(error);
@@ -29,10 +56,26 @@ module.exports = {
     },
     detail: async (req, res) => {
         try {
+            const id = req.params.id;
+
+            if(!ObjectId.isValid(id)){
+                throw createError(400,'ID invalido');
+            }
+
+            const project = await Projects.findById(id);
+
+            if(!project){
+                throw createError(401,'EL proyecto que esta buscando no existe');
+            }
+            if(req.user._id.toString() !== project.createBy.toString()){
+                throw createError(401,'No estas autorizad@');
+            }
+
             return res.status(200).json({
                 ok: true,
-                msg: 'detalle de projecto'
-            })
+                msg: 'detalle de projecto',
+                detail_Project: project
+            });
         } catch (error) {
             console.log(error);
             return res.status(error.status || 500).json({
@@ -43,9 +86,38 @@ module.exports = {
     },
     update: async (req, res) => {
         try {
+            const id = req.params.id;
+            const {name, description, client, dateExpire} = req.body
+
+            if(!ObjectId.isValid(id)){
+                throw createError(400,'ID invalido');
+            }
+
+            const project = await Projects.findById(id);
+
+            if(!project){
+                throw createError(401,'EL proyecto que esta buscando no existe');
+            }
+
+            if(req.user._id.toString() !== project.createBy.toString()){
+                throw createError(401,'No estas autorizad@');
+            }
+            
+            if([name, description, client].includes("") ||!name ||!description || !client){
+                throw createError(400,'Todos los campos son obligatorios');
+            }
+
+            project.name = name || project.name;
+            project.description = description || project.description;
+            project.client = client || project.client;
+            project.dateExpire = dateExpire || project.dateExpire;
+
+            const projectUpdate = await project.save();
+
             return res.status(201).json({
                 ok: true,
-                msg: 'projecto actualizado'
+                msg: 'projecto actualizado',
+                project: projectUpdate
             })
         } catch (error) {
             console.log(error);
@@ -57,6 +129,24 @@ module.exports = {
     },
     remove: async (req, res) => {
         try {
+            const id = req.params.id;
+
+            if(!ObjectId.isValid(id)){
+                throw createError(400,'ID invalido');
+            }
+
+            const project = await Projects.findById(id);
+
+            if(!project){
+                throw createError(401,'EL proyecto que esta buscando no existe');
+            }
+
+            if(req.user._id.toString() !== project.createBy.toString()){
+                throw createError(401,'No estas autorizad@');
+            }
+
+            await project.deleteOne();
+            
             return res.status(201).json({
                 ok: true,
                 msg: 'projecto removido'

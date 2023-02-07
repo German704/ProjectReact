@@ -8,6 +8,7 @@ const connectDB = require('./database/config/config');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const checkToken = require('./middlewares/checkToken');
 
 const app = express();
 
@@ -35,7 +36,7 @@ app
 app
   .use('/api/auth', require('./routes/auth'))
   .use('/api/users', require('./routes/users'))
-  .use('/api/projects', require('./routes/projects'))
+  .use('/api/projects', checkToken, require('./routes/projects'))
   .use('/api/tasks', require('./routes/tasks'))
 
 // catch 404 and forward to error handler
