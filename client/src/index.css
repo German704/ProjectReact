@@ -21,28 +21,30 @@
   background-position: left;
   background-attachment: fixed;
 } */
-@media (min-width: 990px){
+@media (min-width: 360px){
   body{
     background-image: url("https://tech-squad.ro/assets/img/react-job.jpg");
     background-repeat: no-repeat;
-    background-size: 850px;
-    background-position: left;
+    background-size: 72%;
+    background-position: right;
     background-attachment: fixed;
   }
   
 }
 .flexDiv{
   display: flex;
-  justify-content: flex-end;
-  width: 90%;
+  justify-content: flex-start;
+  width: 100%;
   margin: 0 auto;
 }
 .divRoot{
   width: 100%;
 }
 .containerDiv{
-  text-align: center;
-  margin: 0 10px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
 }
 .navContainer{
   width: 100%;
@@ -54,6 +56,121 @@
   text-align: center;
   width: 100%;
   margin: 0 10px;
+}
+
+.ProjectPre{
+  border: 2px double #7653f3;
+  padding: 10px 20px;
+  background-color: #f5f5dcb3;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 20px;
+}
+.EditBTN button{
+  height: 45px;
+}
+.EditBTN svg{
+  width: 25px;
+  margin-right: 5px;
+}
+.BtnNewTask{
+  height: 45px;
+}
+.BtnNewTask svg{
+  width: 25px;
+  margin-right: 5px;
+}
+.task{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  border: 2px double #7653f3;
+  background-color: #f0ffffa1;
+  margin-bottom: 20px;
+  padding: 8px 20px;
+}
+.task .btn{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  height: 155px;
+  margin-right: 15px;
+}
+.BtnCollab{
+  height: 45px;
+}
+.BtnCollab svg{
+  width: 25px;
+  margin-right: 5px;
+}
+.CollabMember{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  border: 2px double #7653f3;
+  background-color: #f0ffffa1;
+  margin-bottom: 20px;
+  padding: 8px 20px;
+}
+.AddForm{
+  width: 50%;
+  min-width: 350px;
+  max-width: 450px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  border: 2px double #7653f3;
+  padding: 10px 20px;
+}
+.AddForm form div {
+  margin-bottom: 10px;
+}
+.sidebar{
+  text-align: center;
+  margin-bottom: 10px;
+}
+.editform{
+  width: 50%;
+  min-width: 350px;
+  max-width: 450px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  border: 2px double #7653f3;
+  padding: 10px 20px;
+}
+.editform form div {
+  margin-bottom: 10px;
+}
+.title {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  /* height: 55px; */
+}
+.title h1 {
+  text-align: start;
+}
+p strong {
+  margin: 5px 0;
+  font-size: 20px;
+}
+.divTaskCollab{
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
 }
 
 a {
@@ -77,6 +194,7 @@ h1 {
   font-size: 2.5em;
   line-height: 1.1;
   text-align: center;
+  margin: 5px 0;
 }
 
 button {
@@ -86,13 +204,13 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  /* background-color: #1a1a1a; */
   cursor: pointer;
   transition: border-color 0.25s;
 }
-button:hover {
+/* button:hover {
   border-color: #646cff;
-}
+} */
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
@@ -106,7 +224,7 @@ button:focus-visible {
   a:hover {
     color: #747bff;
   }
-  button {
+  /* button {
     background-color: #f9f9f9;
-  }
+  } */
 }

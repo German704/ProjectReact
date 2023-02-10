@@ -11,9 +11,9 @@ export const UseForm = (initialState = {}) => {
             ...formValues,
             [target.name]: target.value
         });
-        if(target.type === 'text' ){
-          console.log('nopeeeee')
-        }
+        // if(target.type === 'text' ){
+        //   console.log('nopeeeee')
+        // }
     };
 
     const reset = () => {

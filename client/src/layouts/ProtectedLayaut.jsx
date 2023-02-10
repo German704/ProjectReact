@@ -1,11 +1,13 @@
 import React from 'react';
-import {Navigate, Outlet} from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
+// import Header from '../components/Header';
+// import { Sidebar } from '../components/Sidebar';
 import useAuth from '../hooks/UseAuth';
 
 export const ProtectedLayout = () => {
-  const {auth, loading} = useAuth();
+  const { auth, loading } = useAuth();
 
-  if(loading){
+  if (loading) {
     return (
       <p>Cargando...</p>
     )
@@ -13,19 +15,24 @@ export const ProtectedLayout = () => {
 
   return (
     <>
-    {
+      {
         auth._id ? (
-      <main>
-        <div className='flexDiv'>
-            <Outlet/>
-        </div>
-      </main>
+          <div>
+            <div>
+              {/* <Sidebar /> */}
+              {/* <main> */}
+                <div className='protectedDiv'>
+                  <Outlet />
+                </div>
+              {/* </main> */}
+            </div>
+          </div>
         )
-        :
-        (
-        <Navigate to={"/"}/>
-        )
-    }
+          :
+          (
+            <Navigate to={"/"} />
+          )
+      }
     </>
   )
 }

@@ -1,0 +1,17 @@
+# puerto
+PORT=4000
+
+# mongodb
+CONNECT_DB=
+
+#jwt
+JWT_SECRET=
+
+# nodemailer, mailtrap
+HOST=
+MAIL_PORT=
+USER=
+PASS=
+
+# FRONT-END
+URL_FRONT=

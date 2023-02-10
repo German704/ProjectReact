@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Box, Button, Stack, TextField, useForkRef} from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Alerts } from '../components/Alerts';
 import { UseForm } from '../hooks/UseForm';
 import { clientAxios } from '../config/clientAxios';
@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 export default function Login() {
   const [alert, setAlert] = useState({});
   const {setAuth} = useAuth();
+  const navigate = useNavigate();
 
   const handleShowAlert = (msg, time = true) => {
     setAlert({
@@ -44,16 +45,18 @@ export default function Login() {
         email,
         pass,
       });
-      console.log(data);
+      // console.log(data);
 
       setAuth(data.user);
       sessionStorage.setItem('token', data.token);
 
-      Swal.fire({
-        icon: 'success',
-        title: 'Inicio de sesion Exitoso!',
-        text: data.msg,
-      });
+      navigate('/projects');
+
+      // Swal.fire({
+      //   icon: 'success',
+      //   title: 'Inicio de sesion Exitoso!',
+      //   text: data.msg,
+      // });
       reset();
 
     } catch (error) {
@@ -72,10 +75,11 @@ export default function Login() {
         display:'flex',
         flexWrap: 'wrap',
         justifyContent: 'center',
-        backgroundColor: 'white',
+        backgroundColor: 'transparent',
         // opacity: 0.5,
         m:'0 10px 0 0',
-        '& .MuiTextField-root': { m: 1, width: '25ch' },
+        padding: '0px 20px',
+        '& .MuiTextField-root': { m: 1, width: '31ch' },
       }}
       noValidate
       autoComplete="off"

@@ -127,7 +127,7 @@ export default function Register() {
       component="form"
       onSubmit={handleSubmt}
       sx={{
-        width: 350,
+        width: 340,
         // border: '1px dashed grey',
         display:'flex',
         flexWrap: 'wrap',
@@ -135,7 +135,8 @@ export default function Register() {
         backgroundColor: 'white',
         // opacity: 0.5,
         m:'0 10px 0 0',
-        '& .MuiTextField-root': { m: 1, width: '25ch' },
+        padding: '0px 20px',
+        '& .MuiTextField-root': { m: 1, width: '31ch' },
       }}
       noValidate
       autoComplete="off"

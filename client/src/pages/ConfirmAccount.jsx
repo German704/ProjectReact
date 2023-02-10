@@ -58,7 +58,8 @@ export const ConfirmAccount = () => {
         justifyContent: 'center',
         backgroundColor: 'white',
         m:'0 10px 0 0',
-        '& .MuiTextField-root': { m: 1, width: '25ch' },
+        padding: '0px 20px',
+        '& .MuiTextField-root': { m: 1, width: '31ch' },
       }}
       // noValidate
       // autoComplete="off"

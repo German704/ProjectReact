@@ -80,7 +80,8 @@ export default function RecoverPassword() {
         justifyContent: 'center',
         backgroundColor: 'white',
         m:'0 10px 0 0',
-        '& .MuiTextField-root': { m: 1, width: '25ch' },
+        padding: '0px 20px',
+        '& .MuiTextField-root': { m: 1, width: '31ch' },
       }}      
     >
       <h1>Reestablecer Contraseña</h1>

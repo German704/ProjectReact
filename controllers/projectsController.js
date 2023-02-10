@@ -7,12 +7,12 @@ module.exports = {
     list: async (req, res) => {
         try {
 
-            const projects = await Projects.find().where('createBy').equals(req.user);
+            const projects = await Projects.find().where('createBy').equals(req.user).select("name client");
 
             return res.status(200).json({
                 ok: true,
                 msg: 'lista de proyectos',
-                projects_List: projects
+                projects
             })
         } catch (error) {
             console.log(error);
@@ -43,7 +43,7 @@ module.exports = {
 
             return res.status(201).json({
                 ok: true,
-                msg: 'projecto guardado',
+                msg: 'Projecto guardado con exito',
                 project: projectStore
             })
         } catch (error) {
