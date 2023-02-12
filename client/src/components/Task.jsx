@@ -1,14 +1,17 @@
 import { Button } from '@mui/material'
 import React from 'react'
 
-export const Task = () => {
+export const Task = ({name, description, dateExpire, priority}) => {
+
   return (
     <div className="task">
-        <div>
-            <p>Nombre de la tarea</p>
-            <p>Descripcion de la tarea</p>
-            <p>Fecha de la tarea</p>
-            <p>Prioridad</p>
+        <div className='taskInfo'>
+            <div>
+              <h3>{name}</h3>
+              <span>{` | ${dateExpire}`}</span>
+              <span className={priority === 'Baja' ? 'priorityA' : priority === 'Media' ? 'priorityB' : 'priorityC'}>{` | ${priority}`}</span>
+            </div>
+              <p>{description}</p>
         </div>
         <div className='btn'>
             <Button type='button' variant="outlined" sx={{width: '126px', ":hover": {

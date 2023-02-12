@@ -6,17 +6,18 @@ import Swal from "sweetalert2";
 import { Collaborator } from '../components/Collaborator';
 import { Task } from '../components/Task';
 import { UseProjects } from "../hooks/UseProjects";
+import { ModalFormTask } from "../components/ModalFormTask";
 
 
 export const ProjectDetail = () => {
     const {id} = useParams()
-    const {oneProject, getOneProject, alert, showAlert, loading, deleteProject} = UseProjects();
+    const {oneProject, getOneProject, alert, loading, deleteProject, handleShowModal} = UseProjects();
+    const {name, description, dateExpire, client, _id, tasks} = oneProject;
 
     useEffect(() => {
         getOneProject(id);
     }, [id]);
 
-    const {name, description, dateExpire, client, _id} = oneProject;
 
     if(alert.msg) return <Alerts {...alert}/>;
 
@@ -99,7 +100,7 @@ export const ProjectDetail = () => {
 
             <div className="divTaskCollab">
                 <h2>Tareas del proyecto</h2>
-                <Button variant="outlined" /* onClick={} */ className="BtnNewTask" sx={{
+                <Button variant="outlined" onClick={handleShowModal} className="BtnNewTask" sx={{
                     ":hover": {
                         backgroundColor: "deepskyblue",
                         color: 'darkBlue'
@@ -123,7 +124,16 @@ export const ProjectDetail = () => {
                 </Button>
             </div>
             {
-                [1,2].map(tareas => (<Task/>))
+                tasks && tasks.length ?
+                tasks.map(tareas => (<Task {...tasks} 
+                    key={tareas._id} 
+                    name={tareas.name}
+                    dateExpire={tareas.dateExpire.substring(0, 10)}
+                    priority={tareas.priority}
+                    description={tareas.description}
+                />))
+                :
+                <p>No hay tareas</p>
             }
             <Divider sx={{borderColor: 'rgb(0 5 227)',}}/>
             <div className="divTaskCollab">
@@ -154,12 +164,13 @@ export const ProjectDetail = () => {
                 </Button>
             </div>
             {
-                [1,2].map(collabs => (<Collaborator/>))
+                [1,2].map(collabs => (<Collaborator key={collabs}/>))
             }
             </div>
             )
         }
         
+        <ModalFormTask/>
         </>
     );
 };

@@ -19,10 +19,13 @@ const ProjectsContext = createContext();
 
 const ProjectsProvider = ({children}) => {
     const navigate = useNavigate();
+
     const [alert, setAlert] = useState({});
     const [loading, setLoading] = useState(true);
     const [projects, setProjects] = useState([]);
     const [oneProject, setOneProject] = useState({});
+    const [showModal, setShowModal] = useState(false);
+    const [alertModal, setAlertModal] = useState({});
 
     const showAlert = (msg, time = true) => {
         setAlert({
@@ -32,6 +35,18 @@ const ProjectsProvider = ({children}) => {
         if(time){
           setTimeout(() => {
             setAlert({});
+          }, 5000);
+        }
+    }
+
+    const showAlertModal = (msg, time = true) => {
+        setAlertModal({
+         msg
+        });
+    
+        if(time){
+          setTimeout(() => {
+            setAlertModal({});
           }, 5000);
         }
     }
@@ -185,6 +200,45 @@ const ProjectsProvider = ({children}) => {
         }
     }
 
+    const handleShowModal = () => {
+        setShowModal(!showModal);
+    }
+
+    const storeTask = async (task) => {
+        try {
+            const token = sessionStorage.getItem('token');
+
+            if(!token){
+                return null;
+            }
+
+            task.project = oneProject._id
+            // console.log( task.project)
+            const {data} = await clientAxios.post(`/tasks/`, task, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: token
+                }
+            });
+            console.log(data);
+            oneProject.tasks = [...oneProject.tasks, data.task];
+            setOneProject(oneProject);
+
+            setShowModal(false);
+
+            Toast.fire({
+                icon: 'success',
+                title: data.msg,
+            });
+            setAlert({});
+            
+        } catch (error) {
+            console.error(error);
+            showAlertModal(error.response? error.response.data.msg : "Upss, hubo un error", false);
+        }
+    }
+
+
     return (
         <ProjectsContext.Provider
           value={
@@ -196,6 +250,11 @@ const ProjectsProvider = ({children}) => {
                 oneProject,
                 storeProject,
                 deleteProject,
+                handleShowModal,
+                showModal,
+                showAlertModal,
+                alertModal,
+                storeTask,
                 showAlert,
                 alert
             }

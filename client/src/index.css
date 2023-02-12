@@ -172,7 +172,36 @@ p strong {
   align-items: center;
   justify-content: space-between;
 }
-
+.taskInfo div{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* justify-content: space-between; */
+  flex-wrap: wrap;
+  /* width: 100%; */
+  /* max-width: 257px; */
+}
+.taskInfo p{
+  margin-top: 0;
+}
+.taskInfo div span{
+  margin-left: 5px;
+}
+.taskInfo div .priorityA{
+  color: green;
+  font-size: 18px;
+  font-weight: 600;
+}
+.taskInfo div .priorityB{
+  color: orange;
+  font-size: 18px;
+  font-weight: 600;
+}
+.taskInfo div .priorityC{
+  color: red;
+  font-size: 18px;
+  font-weight: 600;
+}
 a {
   /* font-weight: 500; */
   color: #646cff;
